@@ -3,7 +3,6 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const {CleanWebpackPlugin} = require('clean-webpack-plugin')
 const ImageMinimizerPlugin = require("image-minimizer-webpack-plugin")
-
 const isDev = process.env.NODE_ENV === 'development';
 const isProd = !isDev;
 
@@ -17,7 +16,7 @@ module.exports = {
 	output: {
 		path: path.resolve(__dirname, 'dist'),
 		filename: filename('js'),
-		assetModuleFilename: '[name][ext]'
+		assetModuleFilename: 'assets/plugins/[name][ext]'
 	},
 	resolve: {
 		alias: {
@@ -35,7 +34,6 @@ module.exports = {
 	plugins: [
 		new HtmlWebpackPlugin({
 			template: './src/index.html',
-			favicon: `./src/favicon.ico`
 		}),
 		new ImageMinimizerPlugin({
 			minimizerOptions: {
@@ -60,7 +58,7 @@ module.exports = {
 					options: {
 						presets: ['@babel/preset-env']
 					}
-				}
+				},
 			},
 			{
 				test: /\.s[ac]ss$/i,
@@ -93,23 +91,23 @@ module.exports = {
 				}
 			},
 			{
+				test:  /\.ico$/i,
+				type: 'asset/resource',
+				generator: {
+					filename: `[name][ext]`
+				}
+			},
+			{
 				test: /\.html$/,
 				use: [
 					{
 						loader: "html-loader",
 						options: {
 							sources: true,
-							minimize: isProd
-						}
+						},
 					}
 				]
 			}
 		]
 	}
 }
-/*
-import "core-js/stable";
-import "regenerator-runtime/runtime"
-require('./index.html')
-добавить в index.js
-*/

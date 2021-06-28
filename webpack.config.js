@@ -17,6 +17,7 @@ module.exports = {
 	output: {
 		path: path.resolve(__dirname, 'dist'),
 		filename: filename('js'),
+		assetModuleFilename: '[name][ext]'
 	},
 	resolve: {
 		alias: {
@@ -28,6 +29,7 @@ module.exports = {
 		hot: isDev,
 		host: '0.0.0.0',
 		compress: true,
+
 	},
 	devtool: isDev ? 'source-map' : false,
 	plugins: [
@@ -105,3 +107,9 @@ module.exports = {
 		]
 	}
 }
+/*
+import "core-js/stable";
+import "regenerator-runtime/runtime"
+require('./index.html')
+добавить в index.js
+*/
